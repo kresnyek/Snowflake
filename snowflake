@@ -1,0 +1,91 @@
+<? php
+
+$snowflake = array();
+$r = 8;
+
+function fillArray()
+{
+	global $snowflake;
+
+	for ($i = 0; $i < 17; $i++)
+		for ($j = 0; $j < 17; $j++)
+		{
+				$snowflake[$i][$j] = true;
+		}
+	}
+}
+//Makes Equation
+function eq()
+{
+	
+}
+
+//iterates through x:(x+r)
+function solveEq()
+{
+	
+}
+
+//this sends in an x,y cordinate to be fliped around the snowflake
+function convertToPrint($x, $y)
+{
+	global $r;
+	//Convert quad I
+	cut(($x+$r),($r-$y));//lower half
+	cut(($r-$y),($x+$r));//upper half
+
+	//Convert quad II
+	cut(($r-$x),($r-$y));//lower half
+	cut(($r-$y),($r-$x));//upper half
+
+
+	//Convert quad III
+	cut(($r-$x),($y+$r));//upper half 
+	cut(($y+$r),($r-$x));//lower half
+
+	//Convert quad IV
+	cut(($x+$r),($y+$r));//upper half
+	cut(($y+$r),($x+$r));//lower half
+}
+
+function cut($x,$y)
+{
+	global $snowflake;
+	$snowflake[$x][$y] = false;
+}
+
+function readArray()
+{
+	global $snowflake;
+
+	for ($i = 0; $i < 17; $i++)
+	{
+		for ($j = 0; $j < 17; $j++)
+		{
+			if($snowflake[$i][$j] == true)
+			{
+				$retval .= "<img src = \"/images/13_snow.png\">";
+			}
+			else
+			{
+				$retval .= "<img src = \"/images/13_night.png\">";
+			}
+
+		}
+		$retval .= "<br>";
+	}
+
+	return $retval;
+}
+
+/*
+here we are going to actuallyimplement what was just created
+*/
+
+fillArray();
+convertToPrint(4,4);
+$output = readArray();
+
+print $output;
+
+?>
